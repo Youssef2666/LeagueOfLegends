@@ -2,6 +2,7 @@
 
 use App\Models\CharacterClasses;
 use App\Models\Legacy;
+use App\Models\Region;
 use App\Models\Role;
 use App\Models\Stat;
 use Illuminate\Database\Migrations\Migration;
@@ -19,12 +20,11 @@ return new class extends Migration
             $table->id();
             $table->string('name'); 
             $table->string('title'); 
-            $table->foreignIdFor(CharacterClasses::class); 
+            $table->foreignIdFor(CharacterClasses::class, 'character_class_id'); 
             $table->foreignIdFor(Legacy::class); 
-            $table->foreignIdFor(Stat::class); //stats like hp, ad, etc.
-            $table->foreignIdFor(Role::class, 'position'); 
-            $table->string('adaptive_types'); 
-            $table->float('pick_rate'); 
+            $table->foreignIdFor(Role::class, 'position_id'); 
+            $table->foreignIdFor(Region::class);
+            $table->float('pick_rate')->nullable(); 
             $table->float('win_rate')->nullable(); 
             $table->float('ban_rate')->nullable(); 
             $table->timestamps();

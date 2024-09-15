@@ -22,6 +22,8 @@ class LegacySeeder extends Seeder
             ['type' => 'Support'],
         ];
 
-        DB::table('legacy')->insert($legacyTypes);
+        foreach ($legacyTypes as $legacyType) {
+            \App\Models\Legacy::create($legacyType);
+        }
     }
 }

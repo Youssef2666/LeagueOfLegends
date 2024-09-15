@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+use App\Models\Region;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class RegionController extends Controller
 {
     
     public function index()
     {
-        return Role::all();
+        return Region::all();
     }
 
     /**
@@ -18,8 +18,8 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = Role::create($request->all());
-        return $role;
+        $region = Region::create($request->all());
+        return $region;
     }
 
     /**
@@ -27,8 +27,8 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        $role = Role::findOrFail($id);
-        return $role;
+        $region = Region::findOrFail($id);
+        return $region;
     }
 
     /**
@@ -36,9 +36,9 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $role = Role::findOrFail($id);
-        $role->update($request->all());
-        return $role;
+        $region = Region::findOrFail($id);
+        $region->update($request->all());
+        return $region;
     }
 
     /**
@@ -46,7 +46,7 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        $role = Role::findOrFail($id);
-        $role->delete();
+        $region = Region::findOrFail($id);
+        $region->delete();
     }
 }

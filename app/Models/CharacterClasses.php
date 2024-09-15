@@ -9,5 +9,5 @@ class CharacterClasses extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['class_type', 'sub_type'];
+    protected $fillable = ['legacy_id', 'sub_type'];
 }

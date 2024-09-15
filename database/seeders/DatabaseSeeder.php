@@ -15,7 +15,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             RoleSeeder::class,
-            LegacySeeder::class
+            LegacySeeder::class,
+            CharacterClassesSeeder::class,
+            RegionSeeder::class,
+            ChampionSeeder::class,
+            AbilitySeeder::class,
+            StatSeeder::class,
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CharacterClasses;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -13,26 +14,32 @@ class CharacterClassesSeeder extends Seeder
      */
     public function run(): void
     {
-        $legacyIds = DB::table('legacy')->pluck('id')->toArray();
+        $legacyIds = DB::table('legacies')->pluck('id')->toArray();
 
         // Check if there are legacy IDs available
         if (empty($legacyIds)) {
             $this->command->error('No legacy data found. Please seed the legacy table first.');
             return;
         }
-
-        // Insert data into character_classes table
-        DB::table('character_classes')->insert([
-            ['legacy_id' => $legacyIds[array_rand($legacyIds)], 'sub_type' => 'Juggernaut'],
-            ['legacy_id' => $legacyIds[array_rand($legacyIds)], 'sub_type' => 'Diver'],
-            ['legacy_id' => $legacyIds[array_rand($legacyIds)], 'sub_type' => 'Burst'],
-            ['legacy_id' => $legacyIds[array_rand($legacyIds)], 'sub_type' => 'BattleMage'],
-            ['legacy_id' => $legacyIds[array_rand($legacyIds)], 'sub_type' => 'Artillery'],
-            ['legacy_id' => $legacyIds[array_rand($legacyIds)], 'sub_type' => 'Vanguard'],
-            ['legacy_id' => $legacyIds[array_rand($legacyIds)], 'sub_type' => 'Warden'],
-            ['legacy_id' => $legacyIds[array_rand($legacyIds)], 'sub_type' => 'Carry'],
-            ['legacy_id' => $legacyIds[array_rand($legacyIds)], 'sub_type' => 'Skirmisher'],
-            ['legacy_id' => $legacyIds[array_rand($legacyIds)], 'sub_type' => 'Enchanter'],
-        ]);
+        $subTypes = [
+            'Juggernaut',
+            'Diver',
+            'Burst',
+            'BattleMage',
+            'Artillery',
+            'Vanguard',
+            'Warden',
+            'Carry',
+            'Skirmisher',
+            'Enchanter',
+        ];
+    
+        // Insert data using the CharacterClass model's create method
+        foreach ($subTypes as $subType) {
+            CharacterClasses::create([
+                'legacy_id' => $legacyIds[array_rand($legacyIds)], // Randomly assign a legacy ID
+                'sub_type' => $subType,
+            ]);
+        }
     }
 }

@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+use App\Models\Stat;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class StatController extends Controller
 {
-    
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        return Role::all();
+        return Stat::all();
     }
 
     /**
@@ -18,8 +20,8 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $role = Role::create($request->all());
-        return $role;
+        $stats = Stat::create($request->all());
+        return $stats;
     }
 
     /**
@@ -27,8 +29,8 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        $role = Role::findOrFail($id);
-        return $role;
+        $stats = Stat::findOrFail($id);
+        return $stats;
     }
 
     /**
@@ -36,9 +38,9 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $role = Role::findOrFail($id);
-        $role->update($request->all());
-        return $role;
+        $stats = Stat::findOrFail($id);
+        $stats->update($request->all());
+        return $stats;
     }
 
     /**
@@ -46,7 +48,7 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        $role = Role::findOrFail($id);
-        $role->delete();
+        $stats = Stat::findOrFail($id);
+        $stats->delete();
     }
 }
