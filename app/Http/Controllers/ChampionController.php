@@ -4,15 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\Champion;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class ChampionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Champion::with('position', 'legacy', 'characterClass', 'abilities', 'stats', 'region')->get();
+        $champions = Champion::query()
+            ->when($request->search, function (Builder $builder) use ($request) {
+                $builder->where('name', 'like', "%{$request->search}%")
+                        ->orWhere('title', 'like', "%{$request->search}%");
+            })
+            ->when($request->region_id, function (Builder $builder) use ($request) {
+                $builder->where('region_id', $request->region_id);
+            })
+            ->when($request->position_id, function (Builder $builder) use ($request) {
+                $builder->where('position_id', $request->position_id);
+            })
+            ->with('position', 'legacy', 'characterClass', 'abilities', 'stats', 'region')
+            ->get();
+        return $champions;
+    }
+
+    public function championInfo(string $id){
+        $champion = Champion::findOrFail($id)->with('position', 'legacy', 'characterClass', 'abilities', 'stats', 'region')->get();
+        return $champion;
     }
 
     /**

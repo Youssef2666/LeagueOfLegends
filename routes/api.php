@@ -31,6 +31,8 @@ Route::apiResources([
     'regions' => RegionController::class
 ]);
 
+Route::get('champions/championInfo/{id}', [ChampionController::class, 'championInfo']);
+
 
 
 
